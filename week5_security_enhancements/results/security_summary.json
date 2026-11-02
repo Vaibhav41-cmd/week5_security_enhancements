@@ -1,0 +1,199 @@
+{
+  "generated_utc": "2026-11-02T14:49:36+00:00",
+  "evidence_reused": false,
+  "environment": {
+    "python": "3.13.16",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.41",
+    "cryptography": "50.0.2",
+    "pytest": "9.0.3",
+    "bandit": "1.9.4"
+  },
+  "tests": {
+    "passed": 58,
+    "failed": 0,
+    "return_code": 0,
+    "markers": {
+      "attack": 9,
+      "security": 44,
+      "functionality": 6
+    }
+  },
+  "bandit": {
+    "baseline": {
+      "target": "vulnerable/vulnerable_app.py",
+      "total": 7,
+      "severities": {
+        "LOW": 1,
+        "MEDIUM": 4,
+        "HIGH": 2
+      },
+      "loc": 113,
+      "nosec": 0,
+      "skipped_tests": 0,
+      "issues": [
+        {
+          "code": "B403",
+          "severity": "LOW",
+          "confidence": "HIGH",
+          "cwe": 502,
+          "file": "./vulnerable/vulnerable_app.py",
+          "line": 16,
+          "text": "Consider possible security implications associated with pickle module."
+        },
+        {
+          "code": "B324",
+          "severity": "HIGH",
+          "confidence": "HIGH",
+          "cwe": 327,
+          "file": "./vulnerable/vulnerable_app.py",
+          "line": 54,
+          "text": "Use of weak MD5 hash for security. Consider usedforsecurity=False"
+        },
+        {
+          "code": "B608",
+          "severity": "MEDIUM",
+          "confidence": "LOW",
+          "cwe": 89,
+          "file": "./vulnerable/vulnerable_app.py",
+          "line": 69,
+          "text": "Possible SQL injection vector through string-based query construction."
+        },
+        {
+          "code": "B608",
+          "severity": "MEDIUM",
+          "confidence": "MEDIUM",
+          "cwe": 89,
+          "file": "./vulnerable/vulnerable_app.py",
+          "line": 81,
+          "text": "Possible SQL injection vector through string-based query construction."
+        },
+        {
+          "code": "B608",
+          "severity": "MEDIUM",
+          "confidence": "LOW",
+          "cwe": 89,
+          "file": "./vulnerable/vulnerable_app.py",
+          "line": 121,
+          "text": "Possible SQL injection vector through string-based query construction."
+        },
+        {
+          "code": "B301",
+          "severity": "MEDIUM",
+          "confidence": "HIGH",
+          "cwe": 502,
+          "file": "./vulnerable/vulnerable_app.py",
+          "line": 136,
+          "text": "Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue."
+        },
+        {
+          "code": "B605",
+          "severity": "HIGH",
+          "confidence": "HIGH",
+          "cwe": 78,
+          "file": "./vulnerable/vulnerable_app.py",
+          "line": 142,
+          "text": "Starting a process with a shell, possible injection detected, security issue."
+        }
+      ],
+      "json": "results/security_scans/bandit_baseline.json",
+      "text": "results/security_scans/bandit_baseline.txt"
+    },
+    "secure": {
+      "target": "securenotes",
+      "total": 0,
+      "severities": {
+        "LOW": 0,
+        "MEDIUM": 0,
+        "HIGH": 0
+      },
+      "loc": 1192,
+      "nosec": 0,
+      "skipped_tests": 1,
+      "issues": [],
+      "json": "results/security_scans/bandit_secure.json",
+      "text": "results/security_scans/bandit_secure.txt"
+    }
+  },
+  "manual_vulnerabilities": [
+    {
+      "id": "V-01",
+      "name": "SQL injection",
+      "baseline_severity": "Critical",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-02",
+      "name": "Unsalted MD5 passwords",
+      "baseline_severity": "High",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-03",
+      "name": "Broken access control / IDOR",
+      "baseline_severity": "High",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-04",
+      "name": "Plaintext notes at rest",
+      "baseline_severity": "High",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-05",
+      "name": "Predictable raw sessions",
+      "baseline_severity": "High",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-06",
+      "name": "Unsafe pickle import",
+      "baseline_severity": "Critical",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-07",
+      "name": "Path traversal",
+      "baseline_severity": "High",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-08",
+      "name": "OS command injection",
+      "baseline_severity": "Critical",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-09",
+      "name": "Enumeration / no lockout",
+      "baseline_severity": "Medium",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-10",
+      "name": "Secrets in errors/logs",
+      "baseline_severity": "Medium",
+      "status": "Fixed and regression-tested"
+    },
+    {
+      "id": "V-11",
+      "name": "Missing input limits",
+      "baseline_severity": "Medium",
+      "status": "Fixed and regression-tested"
+    }
+  ],
+  "attack_demo": {
+    "vulnerability_rows": 13,
+    "functionality_rows": 2,
+    "baseline_exploitable_rows": 13,
+    "secure_blocked_or_protected_rows": 13
+  },
+  "nonblank_python_loc": {
+    "securenotes": 1205,
+    "vulnerable": 126,
+    "tests": 519,
+    "tools": 773,
+    "examples": 72,
+    "run.py": 5
+  }
+}

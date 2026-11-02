@@ -1,0 +1,28 @@
+$ python tools/attack_demo.py --output docs/evidence/attack_demo.md
+# SecureNotes attack simulation: vulnerable baseline vs hardened build
+
+Scope: local temporary databases and harmless marker files only.
+Synthetic account: alice. Synthetic note body: SYNTHETIC-SECRET.
+
+| ID | Scenario / attack input | Vulnerable baseline | Hardened SecureNotes |
+|---|---|---|---|
+| V-01a | Login SQL injection: `alice' --` + wrong password | EXPLOITED: login succeeded with the wrong password | BLOCKED (AuthenticationError: Invalid username or password.) |
+| V-01b | Search SQL injection: `' ) OR 1=1 --` | EXPLOITED: returned Alice note to user 999 = True | BLOCKED: literal search returned 0 notes |
+| V-02 | Inspect stored password verifier | WEAK: unsalted MD5 `5f4dcc3b5aa765d61d8327deb882cf99` | STRONG: PBKDF2-HMAC-SHA256, 600,000 iterations, per-user salt; record prefix `pbkdf2_sha256` |
+| V-03 | Read another user's note by guessing its ID | EXPLOITED: returned body 'SYNTHETIC-SECRET' | BLOCKED (NotFoundError: Note not found.) |
+| V-04 | Search raw SQLite bytes for SYNTHETIC-SECRET | EXPOSED: plaintext found = True | PROTECTED: plaintext found = False |
+| V-05 | Inspect session token design/storage | PREDICTABLE + RAW: `session-<user id>-<unix seconds>`; database value equals bearer token = True | PROTECTED: bearer token is random; database stores only its SHA-256 digest = True; expiry = 2026-11-02T15:19:21+00:00 |
+| V-06 | Import pickle canary that would create a marker file | EXPLOITED: marker created = True | BLOCKED (ValidationError: Import source must be an existing JSON file.); marker created = False |
+| V-07 | Export filename `../escaped.*` | EXPLOITED: wrote outside export directory to escaped.txt | BLOCKED (ValidationError: Filename must not contain a path.); escaped file exists = False |
+| V-08 | Backup name containing `; touch <marker>` | EXPLOITED: marker created = True | BLOCKED (ValidationError: Filename must not contain a path.); marker created = False |
+| V-09a | Compare unknown-user and wrong-password errors | ENUMERATION: 'User does not exist' vs 'Wrong password for existing user' | GENERIC: unknown-user error = 'Invalid username or password.' (same public message used for wrong passwords) |
+| V-09b | Five wrong passwords, then the correct password | NO LOCKOUT: baseline has no failed-attempt counter or delay | LOCKED: correct password rejected during lockout: 'Account is temporarily locked. Please try again later.' |
+| V-10 | Inspect application logs/audit records | EXPOSED: baseline logs contain password, bearer token and note body = True | REDACTED: secure audit text contains none of password/token/note body = True |
+| V-11 | Create a 20,000-character note body | ACCEPTED: 20,000-character body stored without a limit | BLOCKED (ValidationError: Body must not exceed 10000 characters.) |
+| F-01 | Legitimate owner reads note after hardening | Works (but plaintext/insecure) | Works after decrypting with Alice's password-derived key = True |
+| F-02 | Legitimate SQLite backup with a safe filename | Works only by invoking an unsafe shell string | Works through SQLite backup API = True |
+
+Interpretation: a baseline result marked EXPLOITED/EXPOSED proves the
+vulnerability was reachable, not merely suspected from source review.
+A hardened result marked BLOCKED/PROTECTED is paired with F-01/F-02
+evidence that the corresponding legitimate workflow still succeeds.

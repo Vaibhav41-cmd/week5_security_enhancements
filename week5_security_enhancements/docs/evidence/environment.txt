@@ -1,0 +1,19 @@
+Week 5 evidence environment
+Generated: 2026-11-02 14:49:19 UTC
+Python: 3.13.16 (CPython)
+Platform: Linux-6.1.158+-x86_64-with-glibc2.41
+
+Package versions:
+- cryptography: 50.0.2
+- pytest: 9.0.3
+- bandit: 1.9.4
+- matplotlib: 3.10.9
+- Pillow: 12.3.0
+- python-docx: 1.1.2
+
+Security configuration:
+- PBKDF2-HMAC-SHA256 iterations: 600,000
+- Note encryption: Fernet with a password-derived key and separate salt
+- Session lifetime: 30 minutes; only SHA-256 token digests are stored
+- Account lockout: 5 failed attempts -> 15 minutes
+- SQLite file permissions on POSIX: 0600 (best effort)

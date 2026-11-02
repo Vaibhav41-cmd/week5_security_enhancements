@@ -1,0 +1,27 @@
+$ python run.py --help
+usage: securenotes [-h] [--db DB] [--export-dir EXPORT_DIR]
+                   {register,login,whoami,logout,add,list,get,search,update,delete,export,import,backup,change-password} ...
+
+Hardened local notes CLI
+
+positional arguments:
+  {register,login,whoami,logout,add,list,get,search,update,delete,export,import,backup,change-password}
+    register            create an account
+    login               verify credentials and issue a session token
+    whoami              validate a session token
+    logout              revoke a session token
+    add                 create an encrypted note
+    list                list your note titles
+    get                 display one of your notes
+    search              literal search within your notes
+    update              update one of your notes
+    delete              delete one of your notes
+    export              export your notes as JSON in the export directory
+    import              import schema-validated JSON notes
+    backup              create a protected SQLite backup
+    change-password     change password and re-encrypt notes
+
+options:
+  -h, --help            show this help message and exit
+  --db DB
+  --export-dir EXPORT_DIR

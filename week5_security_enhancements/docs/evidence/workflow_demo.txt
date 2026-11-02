@@ -1,0 +1,12 @@
+$ python examples/demo.py
+Registered alice (id=1) and bob (id=2)
+Alice session expires at 2026-11-02T15:19:20+00:00 (token redacted)
+Created encrypted notes #1 and #2
+Alice list: [(1, 'Project plan'), (2, 'Travel')]
+Alice search 'supplier': [1]
+Bob trying to read Alice note #1: NotFoundError: Note not found.
+Stored title ciphertext (first 24 chars): gAAAAABq6KLwCc8vRUds8MT-
+Stored body ciphertext (first 24 chars): gAAAAABq6KLwWUhjw6DyPw4l
+Exported Alice-only JSON: alice-notes.json (319 bytes)
+Old password after rotation: AuthenticationError: Invalid username or password.
+New password can still decrypt note: Call the supplier on Tuesday

@@ -1,0 +1,14 @@
+{
+  "notes": [
+    {
+      "title": "Welcome to SecureNotes",
+      "body": "This sample can be imported safely. Real secrets should be created directly in the encrypted application.",
+      "tags": ["sample", "welcome"]
+    },
+    {
+      "title": "Weekly security checklist",
+      "body": "Rotate credentials, review audit events, update dependencies, and keep encrypted backups offline.",
+      "tags": ["checklist", "security"]
+    }
+  ]
+}

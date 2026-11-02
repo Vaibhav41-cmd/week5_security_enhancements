@@ -1,0 +1,31 @@
+Week 5 verification summary
+Generated: 2026-11-02T14:49:36+00:00
+Evidence mode: fresh command execution
+
+Tests
+- pytest: 58 passed, 0 failed
+- attack-marker tests collected: 9
+- security-marker tests collected: 44
+- functionality-marker tests collected: 6
+
+Bandit
+- vulnerable/vulnerable_app.py: 7 issues {'LOW': 1, 'MEDIUM': 4, 'HIGH': 2}
+- securenotes package: 0 issues {'LOW': 0, 'MEDIUM': 0, 'HIGH': 0}
+- The one secure-package B105 candidate (the public algorithm label
+  "pbkdf2_sha256") was manually triaged as a false positive and suppressed
+  only on that constant with an explanatory comment.
+
+Manual audit / attacks
+- Vulnerability classes in register: 11
+- Baseline severity counts: {'Critical': 3, 'High': 5, 'Medium': 3}
+- Attack demo rows: 13 vulnerability checks + 2 legitimate-workflow checks
+- Baseline exploitable/exposed rows: 13/13
+- Hardened blocked/protected rows: 13/13
+
+Non-blank Python lines
+- securenotes: 1205
+- vulnerable: 126
+- tests: 519
+- tools: 773
+- examples: 72
+- run.py: 5
